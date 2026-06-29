@@ -5,7 +5,6 @@
 **A comprehensive, production-ready AI application that analyzes, scores, and optimizes LinkedIn profiles in real-time.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Active-brightgreen?style=for-the-badge&logo=vercel&logoColor=white)](https://ai-linked-in-profile-reviewer.vercel.app/)
-[![API Docs](https://img.shields.io/badge/API%20Docs-Online-blue?style=for-the-badge&logo=fastapi&logoColor=white)](https://ai-linkedin-backend-poa7.onrender.com/docs)
 
 [![Frontend](https://img.shields.io/badge/Frontend-React%20%7C%20Vite%20%7C%20Tailwind-blue?logo=react&logoColor=white)](#-frontend-setup-vite--react)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python-green?logo=fastapi&logoColor=white)](#-backend-setup-fastapi)
@@ -15,11 +14,9 @@
 
 ---
 
-## 🌐 Live Deployments
+## 🌐 Live Demo
 
-- **Frontend Application (Vercel):** [https://ai-linked-in-profile-reviewer.vercel.app/](https://ai-linked-in-profile-reviewer.vercel.app/)
-- **Backend API Server (Render):** [https://ai-linkedin-backend-poa7.onrender.com](https://ai-linkedin-backend-poa7.onrender.com)
-- **API Swagger Documentation:** [https://ai-linkedin-backend-poa7.onrender.com/docs](https://ai-linkedin-backend-poa7.onrender.com/docs)
+- **Web Application:** [https://ai-linked-in-profile-reviewer.vercel.app/](https://ai-linked-in-profile-reviewer.vercel.app/)
 
 ---
 

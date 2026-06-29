@@ -4,22 +4,33 @@
 
 **A comprehensive, production-ready AI application that analyzes, scores, and optimizes LinkedIn profiles in real-time.**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Active-brightgreen?style=for-the-badge&logo=vercel&logoColor=white)](https://ai-linkedin-profile-reviewer.vercel.app)
+[![API Docs](https://img.shields.io/badge/API%20Docs-Online-blue?style=for-the-badge&logo=fastapi&logoColor=white)](https://ai-linkedin-backend-poa7.onrender.com/docs)
+
 [![Frontend](https://img.shields.io/badge/Frontend-React%20%7C%20Vite%20%7C%20Tailwind-blue?logo=react&logoColor=white)](#-frontend-setup-vite--react)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python-green?logo=fastapi&logoColor=white)](#-backend-setup-fastapi)
 [![Auth](https://img.shields.io/badge/Auth-Firebase-orange?logo=firebase&logoColor=white)](#-step-1-firebase-project-setup)
-[![AI Integration](https://img.shields.io/badge/AI-Groq%20%7C%20Llama%203-black)](#)
 
 </div>
 
 ---
 
+## 🌐 Live Deployments
+
+- **Frontend Application (Vercel):** [https://ai-linkedin-profile-reviewer.vercel.app](https://ai-linkedin-profile-reviewer.vercel.app)
+- **Backend API Server (Render):** [https://ai-linkedin-backend-poa7.onrender.com](https://ai-linkedin-backend-poa7.onrender.com)
+- **API Swagger Documentation:** [https://ai-linkedin-backend-poa7.onrender.com/docs](https://ai-linkedin-backend-poa7.onrender.com/docs)
+
+---
+
 ## 🌟 Overview
 
-The **AI LinkedIn Profile Reviewer** is a full-stack platform where users can paste their LinkedIn profile details (Headline, About section, Work Experience, and Skills) to receive:
-- 📈 **SEO Graded Search Rankings**
+The **AI LinkedIn Profile Reviewer** is a full-stack platform where users can paste their LinkedIn profile details (Headline, About section, Work Experience, and Skills) or upload their resume to receive:
+- 📈 **SEO Graded Search Rankings & Dashboards**
 - ✍️ **Professional Optimization Reviews**
 - 💡 **Copy-and-Paste Headline Improvements**
 - 🔍 **In-depth Skills Gap Analysis**
+- 📄 **Resume ATS Parsing & Career Roadmaps**
 
 ---
 

@@ -6,6 +6,7 @@ export interface ProfileInput {
   experience: string;
   skills: string[];
   targetRole: string;
+  projects?: string;
 }
 
 export interface ProfileAnalysisResponse {
@@ -223,5 +224,88 @@ export const api = {
     postRequest<PremiumAnalysisResponse>("/api/analyze-profile-premium", profileData, token),
 
   chat: (chatData: ChatInput, token?: string) =>
-    postRequest<ChatResponse>("/api/chat", chatData, token)
+    postRequest<ChatResponse>("/api/chat", chatData, token),
+
+  // Resume Upload Endpoints
+  uploadResume: async (file: File, token?: string): Promise<ResumeUploadResponse> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/resume/upload`, {
+      method: "POST",
+      headers,
+      body: formData
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      let detailMessage = errorText;
+      try {
+        const parsed = JSON.parse(errorText);
+        detailMessage = parsed.detail || errorText;
+      } catch (_) {}
+      throw new Error(detailMessage);
+    }
+
+    return response.json();
+  },
+
+  analyzeResume: async (
+    payload: { fileName: string; text: string; structuredData: StructuredResumeData },
+    token?: string
+  ): Promise<ResumeAnalysis> => {
+    return postRequest<ResumeAnalysis>("/api/resume/analyze", payload, token);
+  }
 };
+
+// -----------------
+// Resume Interfaces
+// -----------------
+export interface StructuredResumeData {
+  name: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  github: string;
+  portfolio: string;
+  summary: string;
+  skills: string[];
+  projects: any[];
+  experience: any[];
+  education: any[];
+  certifications?: string[];
+  achievements?: string[];
+  languages?: string[];
+}
+
+export interface ResumeAnalysis {
+  atsScore: number;
+  recruiterScore: number;
+  seoScore: number;
+  profileStrength: number;
+  missingKeywords: string[];
+  missingSkills: string[];
+  weakBulletPoints: string[];
+  suggestedImprovements: string[];
+  optimizedSummary: string;
+  industryBenchmark: Record<string, any>;
+  careerRoadmap: Record<string, any>;
+}
+
+export interface ResumeUploadResponse {
+  success: boolean;
+  fileName: string;
+  pages: number;
+  characters: number;
+  wordCount: number;
+  estimatedReadingTime: string;
+  text: string;
+  structuredData: StructuredResumeData;
+  analysis?: ResumeAnalysis | null;
+}
+

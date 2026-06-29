@@ -10,6 +10,7 @@ class ProfileInput(BaseModel):
     experience: str
     skills: List[str]
     targetRole: str
+    projects: Optional[str] = ""
 
 class ProfileAnalysisResponse(BaseModel):
     strengths: List[str]
@@ -151,3 +152,46 @@ class ChatInput(BaseModel):
 
 class ChatResponse(BaseModel):
     response: str
+
+# -----------------
+# Resume Upload & Analysis
+# -----------------
+class StructuredResumeData(BaseModel):
+    name: str = ""
+    email: str = ""
+    phone: str = ""
+    linkedin: str = ""
+    github: str = ""
+    portfolio: str = ""
+    summary: str = ""
+    skills: List[str] = []
+    projects: List[Dict[str, Any]] = []
+    experience: List[Dict[str, Any]] = []
+    education: List[Dict[str, Any]] = []
+    certifications: List[str] = []
+    achievements: List[str] = []
+    languages: List[str] = []
+
+class ResumeAnalysis(BaseModel):
+    atsScore: int = 0
+    recruiterScore: int = 0
+    seoScore: int = 0
+    profileStrength: int = 0
+    missingKeywords: List[str] = []
+    missingSkills: List[str] = []
+    weakBulletPoints: List[str] = []
+    suggestedImprovements: List[str] = []
+    optimizedSummary: str = ""
+    industryBenchmark: Dict[str, Any] = {}
+    careerRoadmap: Dict[str, Any] = {}
+
+class ResumeUploadResponse(BaseModel):
+    success: bool
+    fileName: str
+    pages: int
+    characters: int
+    wordCount: int
+    estimatedReadingTime: str
+    text: str
+    structuredData: Optional[StructuredResumeData] = None
+    analysis: Optional[ResumeAnalysis] = None

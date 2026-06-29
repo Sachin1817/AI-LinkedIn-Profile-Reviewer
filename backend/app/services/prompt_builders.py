@@ -19,12 +19,14 @@ def build_analysis_system_prompt() -> str:
 
 def build_analysis_user_prompt(data: ProfileInput) -> str:
     skills_str = ", ".join(data.skills) if data.skills else "None listed"
+    projects_str = data.projects if hasattr(data, "projects") and data.projects else "None listed"
     return (
         f"Target Role: {data.targetRole}\n"
         f"Headline: {data.headline}\n"
         f"About: {data.about}\n"
         f"Experience:\n{data.experience}\n"
         f"Skills: {skills_str}\n"
+        f"Projects:\n{projects_str}\n"
     )
 
 def build_headline_system_prompt() -> str:
@@ -227,12 +229,14 @@ def build_premium_analysis_system_prompt() -> str:
 
 def build_premium_analysis_user_prompt(data: ProfileInput) -> str:
     skills_str = ", ".join(data.skills) if data.skills else "None listed"
+    projects_str = data.projects if hasattr(data, "projects") and data.projects else "None listed"
     return (
         f"Target Role: {data.targetRole}\n"
         f"Current Headline: {data.headline}\n"
         f"Current About Section: {data.about}\n"
         f"Current Experience Details: {data.experience}\n"
         f"Current Skills: {skills_str}\n"
+        f"Current Projects: {projects_str}\n"
     )
 
 def build_chat_system_prompt(profile_context: Optional[Dict[str, Any]]) -> str:
@@ -265,3 +269,90 @@ def build_chat_user_prompt(message: str, history: List[Dict[str, str]]) -> str:
         f"Chat History:\n{history_str}\n"
         f"User Message: {message}\n"
     )
+
+# -----------------
+# Resume Parsing & Structuring
+# -----------------
+def build_resume_structuring_system_prompt() -> str:
+    return (
+        "You are an expert ATS (Applicant Tracking System) parser. Your task is to analyze the raw text of a resume "
+        "and extract it into a structured JSON object. Focus on extracting accurate dates, names, companies, and roles.\n"
+        "You MUST respond ONLY with a valid JSON object matching this schema:\n"
+        "{\n"
+        "  \"name\": \"Full Name\",\n"
+        "  \"email\": \"email@example.com\",\n"
+        "  \"phone\": \"phone number\",\n"
+        "  \"linkedin\": \"linkedin profile url\",\n"
+        "  \"github\": \"github profile url\",\n"
+        "  \"portfolio\": \"portfolio website url\",\n"
+        "  \"summary\": \"professional summary\",\n"
+        "  \"skills\": [\"skill1\", \"skill2\"],\n"
+        "  \"projects\": [\n"
+        "    {\n"
+        "      \"title\": \"Project Name\",\n"
+        "      \"description\": \"Description of project and achievements\",\n"
+        "      \"technologies\": [\"Tech1\", \"Tech2\"]\n"
+        "    }\n"
+        "  ],\n"
+        "  \"experience\": [\n"
+        "    {\n"
+        "      \"role\": \"Job Title\",\n"
+        "      \"company\": \"Company Name\",\n"
+        "      \"duration\": \"Duration (e.g., Jun 2021 - Present)\",\n"
+        "      \"description\": \"Detailed responsibilities and achievements\"\n"
+        "    }\n"
+        "  ],\n"
+        "  \"education\": [\n"
+        "    {\n"
+        "      \"degree\": \"Degree Name (e.g. BS Computer Science)\",\n"
+        "      \"school\": \"School Name\",\n"
+        "      \"year\": \"Graduation Year\"\n"
+        "    }\n"
+        "  ],\n"
+        "  \"certifications\": [\"Certification 1\", ...],\n"
+        "  \"achievements\": [\"Achievement 1\", ...],\n"
+        "  \"languages\": [\"Language 1\", ...]\n"
+        "}\n"
+        "Do not include any pre-text, post-text, or markdown formatting blocks. Just return clean, raw JSON."
+    )
+
+def build_resume_structuring_user_prompt(raw_text: str) -> str:
+    return f"Raw Resume Text to Parse:\n\n{raw_text}"
+
+def build_resume_analysis_system_prompt() -> str:
+    return (
+        "You are an elite career coach and ATS scoring specialist. Analyze the structured resume data provided "
+        "and conduct a rigorous evaluation of its strength, recruiter appeal, ATS keyword compatibility, and SEO discoverability.\n"
+        "You MUST respond ONLY with a valid JSON object matching this schema:\n"
+        "{\n"
+        "  \"atsScore\": 85,\n"
+        "  \"recruiterScore\": 78,\n"
+        "  \"seoScore\": 82,\n"
+        "  \"profileStrength\": 80,\n"
+        "  \"missingKeywords\": [\"Keyword 1\", \"Keyword 2\"],\n"
+        "  \"missingSkills\": [\"Skill 1\", \"Skill 2\"],\n"
+        "  \"weakBulletPoints\": [\"Highlight weak or non-quantifiable bullets (e.g., 'Responsible for maintaining code')\"],\n"
+        "  \"suggestedImprovements\": [\"Concrete recommendation 1\", \"Concrete recommendation 2\"],\n"
+        "  \"optimizedSummary\": \"Write a high-impact, keyword-rich professional summary rewrite\",\n"
+        "  \"industryBenchmark\": {\n"
+        "    \"entryLevel\": 60,\n"
+        "    \"midLevel\": 75,\n"
+        "    \"seniorLevel\": 85,\n"
+        "    \"topTenPercent\": 95,\n"
+        "    \"userPercentile\": 70\n"
+        "  },\n"
+        "  \"careerRoadmap\": {\n"
+        "    \"nextRole\": \"Next logical target job title\",\n"
+        "    \"skillsToAcquire\": [\"Required skill A\", \"Required skill B\"],\n"
+        "    \"certificationRecommendations\": [\"Recommended Certification X\"],\n"
+        "    \"shortTermGoals\": [\"Short term action item 1\", ...],\n"
+        "    \"longTermGoals\": [\"Long term career milestone 1\", ...]\n"
+        "  }\n"
+        "}\n"
+        "Keep scores realistic and actionable. Do not include any pre-text, post-text, or markdown formatting tags. Return raw, clean JSON."
+    )
+
+def build_resume_analysis_user_prompt(data: dict) -> str:
+    import json
+    return f"Structured Resume Data:\n\n{json.dumps(data)}"
+

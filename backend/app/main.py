@@ -10,6 +10,7 @@ from firebase_admin import credentials
 from app.core.config import settings
 from app.core.rate_limiter import limiter
 from app.routers.analyze import router as analyze_router
+from app.routers.resume import router as resume_router
 
 # Configure logger
 logging.basicConfig(level=logging.INFO)
@@ -54,6 +55,7 @@ app.add_middleware(
 
 # 5. Routing
 app.include_router(analyze_router)
+app.include_router(resume_router)
 
 @app.get("/")
 def health_check():
